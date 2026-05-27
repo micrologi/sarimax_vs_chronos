@@ -16,9 +16,17 @@ classe = "Residencial"
 tipo_consumidor = "Cativo"
 
 # período total utilizado
+estabilidade_quebra = input('1-Estabilidade / 2-Quebra estrutural (Pandemia): ')
+
 data_inicial = "2004-01-01"
-data_final = "2025-12-31"
-data_limite_treino = "2024-12-31"
+if estabilidade_quebra == "1":
+    data_limite_treino = "2017-12-31"
+    data_final = "2019-12-31"
+else: #quebra estrutural
+    data_limite_treino = "2019-12-31"
+    data_final = "2021-12-31"
+
+
 
 # parâmetros do modelo
 ordem = (2, 1, 2)
@@ -70,9 +78,9 @@ df = df[
     (df["Data"] >= dt_ini) & (df["Data"] <= dt_fim)
 ].copy()
 
-df = df[
-    (df["Classe"] == classe) & (df["TipoConsumidor"] == tipo_consumidor)
-].copy()
+#df = df[
+#    (df["Classe"] == classe) & (df["TipoConsumidor"] == tipo_consumidor)
+#].copy() 
 
 serie = df[
     ["Data", "Consumo"]
@@ -237,8 +245,6 @@ plt.axvline(
 plt.title(
     f"""
     SARIMAX - Consumo energético
-    Classe: {classe}
-    Tipo: {tipo_consumidor}
     """
 )
 
